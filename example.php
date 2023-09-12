@@ -10,6 +10,7 @@ $DaysColorArray[2][18]="green";
 $DaysHollydaysArray[3][17]="true";
 
 //function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHollidays, $highlightHollidays, $highlightSunday, $ighlightSaturday, $footer, $format)
-mkCal("Test Calendar", 2023 ,"de_DE", $DaysTextArray, $DaysColorArray, $DaysHollydaysArray, "magenta" ,"red", "firebrick1", "some idiotic footer text", "A4Landscape");
+$pdf = new PDF('L','mm','A4');
+$pdf->mkCal("Test Calendar", 2023 ,"de_DE", $DaysTextArray, $DaysColorArray, $DaysHollydaysArray, "magenta" ,"red", "firebrick1", "some idiotic footer text", "A4Landscape");
 
 ?>
