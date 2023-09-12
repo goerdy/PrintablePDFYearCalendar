@@ -87,6 +87,9 @@ function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHollidays, $h
       $this->Ln();
     }    
         $this->Cell(400,10,$footer,0);
+        $this->Ln();
+        $this->Cell(400,10,"This Calendar was made using PrintablePDFYearCalendar by @goerdy - github.com/goerdy/PrintablePDFYearCalendar",0);
+  
   
         $fill = !$fill;
 
