@@ -5,7 +5,7 @@ class PDF extends FPDF
 {
 
 // makeCalendar
-function mkCal($title, $locale, $daysText, $daysColor, $daysHollidays, $sundayHighlight, $SaturdayHighlight, $footer, $format)
+function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHollidays, $highlightHollidays, $highlightSunday, $ighlightSaturday, $footer, $format)
 {
     /*
         $title = String that contains the Header-text of the Calendar
@@ -23,6 +23,15 @@ function mkCal($title, $locale, $daysText, $daysColor, $daysHollidays, $sundayHi
     //setlocale for correct display of month and days
     setlocale(LC_TIME, $locale);
     
+    //initialize PDF
+    $this = new PDF('L','mm','A4');
+    $this->SetMargins(12,5,5);
+    $this->SetAutoPageBreak(true,5);
+    $this->SetFont('Arial','',12);
+    $this->AddPage();
+
+
+
     //title
     $this->Cell(200,10,iconv('UTF-8', 'windows-1252', $title),0);
     $this->Ln();
@@ -83,4 +92,9 @@ function mkCal($title, $locale, $daysText, $daysColor, $daysHollidays, $sundayHi
         $fill = !$fill;
     }
     
+
+    //finalize pdf and output
+    $this->Output();
 }
+
+?>
