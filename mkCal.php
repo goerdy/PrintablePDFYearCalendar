@@ -3,23 +3,29 @@ require('fpdf.php');
 
 class PDF extends FPDF
 {
-// Load data
-function LoadData($file)
-{
-    // Read file lines
-    $lines = file($file);
-    $data = array();
-    foreach($lines as $line)
-        $data[] = explode(';',trim($line));
-    return $data;
-}
 
-// Colored table
-function FancyTable($header, $data, $footer)
+// makeCalendar
+function mkCal($title, $locale, $daysText, $daysColor, $daysHollidays, $sundayHighlight, $SaturdayHighlight, $footer, $format)
 {
+    /*
+        $title = String that contains the Header-text of the Calendar
+        $locale = locale setting for Month and Day names (e.g. de_DE)
+        $daysText = 2-dimensional string array [month][day] for text in cell
+        $daysColor = 2-dimensional string array [month][day] for bgcolor of cell (HEX)
+        $daysHollidays = 2-dimensional bool array [month][day] true=day is holliday
+        $highlightHollidays = Hex key of highlightcolor of Hollidays
+        $highlightSunday = Hex key of highlightcolor of Sundays
+        $highlightSaturday = Hex key of highlightcolor of Saturdays
+        $footer = String with footer text
+        $format = currently only "A4Landscape"
+    */
+
+    //setlocale for correct display of month and days
+    setlocale(LC_TIME, $locale);
+    
     //title
-    $this->Cell(200,10,'Dienstplan',0);
-     $this->Ln();
+    $this->Cell(200,10,iconv('UTF-8', 'windows-1252', $title),0);
+    $this->Ln();
     
     // Colors, line width and bold font
     $this->SetFillColor(255,0,0);
@@ -29,9 +35,9 @@ function FancyTable($header, $data, $footer)
     $this->SetFont('','B');
     // Header
     $w = 22; //Cell Width
-    $this->Cell(8,7,$header[$i],1,0,'C',true);
-    for($i=1;$i<count($header);$i++)
-        $this->Cell($w,7,iconv('UTF-8', 'windows-1252', $header[$i]),1,0,'C',true);
+    $this->Cell(8,7,,1,0,'C',true);
+    for($i=1;$i<=12;$i++)
+        $this->Cell($w,7,$date = strftime('%B',strtotime($i."/01/1970"));  ,1,0,'C',true);
     $this->Ln();
     // Color and font restoration
     $this->SetFillColor(224,235,255);
@@ -46,7 +52,7 @@ function FancyTable($header, $data, $footer)
       {
       if($j==0)
       {
-        $this->Cell(8,5.2,$data[$j][$i],'LRB',0,'L',$fill);
+        $this->Cell(8,5.2,$i,'LRB',0,'L',$fill);
       }
       else
       {
@@ -63,7 +69,7 @@ function FancyTable($header, $data, $footer)
         $fill = true;
         }
         
-        $this->Cell($w,5.2,$data[$j][$i],'LRB',0,'L',$fill);
+        $this->Cell($w,5.2,$daysText[$j][$i],'LRB',0,'L',$fill);
         $fill=false;
         $this->SetDrawColor(0,0,0);
       }
@@ -76,9 +82,5 @@ function FancyTable($header, $data, $footer)
   
         $fill = !$fill;
     }
-    // Closing line
-    //$this->Cell(520,0,'','T');
-     //$this->Ln();
-   // $this->Cell(400,10,$footer,1);
-    // $this->Ln();
+    
 }
