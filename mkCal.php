@@ -44,7 +44,7 @@ function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHollidays, $h
     $this->SetFont('','B');
     // Header
     $w = 22; //Cell Width
-    $this->Cell(8,7,,1,0,'C',true);
+    $this->Cell(8,7,' ',1,0,'C',true);
     for($i=1;$i<=12;$i++)
         $this->Cell($w,7,$date = strftime('%B',strtotime($i."/01/1970"));  ,1,0,'C',true);
     $this->Ln();
