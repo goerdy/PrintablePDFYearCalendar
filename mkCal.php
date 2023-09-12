@@ -24,7 +24,6 @@ function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHollidays, $h
     setlocale(LC_TIME, $locale);
     
     //initialize PDF
-    $this = new PDF('L','mm','A4');
     $this->SetMargins(12,5,5);
     $this->SetAutoPageBreak(true,5);
     $this->SetFont('Arial','',12);
