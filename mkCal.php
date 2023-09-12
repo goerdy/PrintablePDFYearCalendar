@@ -90,11 +90,13 @@ function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHollidays, $h
         $this->Cell(400,10,$footer,0);
   
         $fill = !$fill;
-    }
-    
 
     //finalize pdf and output
     $this->Output();
+    }
+    
+
+    
 }
 
 ?>
