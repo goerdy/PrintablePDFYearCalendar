@@ -1,6 +1,11 @@
 # PrintablePDFYearCalendar
 
-This project provides a script that renders a year calendar on a single page PDF file.
+This project provides a script that renders a year calendar on a single page PDF file. This is perfect for workshift scedules, club meetings, school holidays and much more.
+The option to color highlight days makes it clearer to read and gives an easy overview.
+
+This projekt was made to print a 24-hour shift scedule for a career fire department and is used in that project [link to fireshift git].
+
+It was a well considered desicion to use 2-dimensional arrays as input cause they are easy to fill with data from different sources and dont blow the code that much.
 
 # Features
 
