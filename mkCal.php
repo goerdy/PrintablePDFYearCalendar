@@ -5,15 +5,15 @@ class PDF extends FPDF
 {
 
 // makeCalendar
-    function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHollidays, $highlightHollidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorSceme)
+    function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorSceme)
     {
         /*
             $title = String that contains the Header-text of the Calendar
             $locale = locale setting for Month and Day names (e.g. de_DE)
             $daysText = 2-dimensional string array [month][day] for text in cell
             $daysColor = 2-dimensional string array [month][day] for bgcolor of cell (HEX)
-            $daysHollidays = 2-dimensional bool array [month][day] true=day is holliday
-            $highlightHollidays = Hex key of highlightcolor of Hollidays
+            $daysHolidays = 2-dimensional bool array [month][day] true=day is holiday
+            $highlightHolidays = Hex key of highlightcolor of Holidays
             $highlightSunday = Hex key of highlightcolor of Sundays
             $highlightSaturday = Hex key of highlightcolor of Saturdays
             $footer = String with footer text
