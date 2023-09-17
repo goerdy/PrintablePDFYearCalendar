@@ -20,6 +20,12 @@ class PDF extends FPDF
             $format = currently only "A4Landscape"
             $ColorSceme = Color for Title and Month Background
         */
+        
+        //TODO: add ColorScheme support
+        //TODO: add page format support
+        //TODO: add pdf metadata (Page Title, created with PrintablePDFYearCalendar, ...)
+        //TODO: clean up code, some executions are obsolete
+        //TODO: improve code comments
 
         //setlocale for correct display of month and days
         setlocale(LC_TIME, $locale);
@@ -135,12 +141,12 @@ class PDF extends FPDF
         $this->SetFont('Arial','',10);
         $this->Cell(400,10,iconv('UTF-8', 'windows-1252',"This Calendar was made using PrintablePDFYearCalendar by Philipp Gürth - github.com/goerdy/PrintablePDFYearCalendar"),0);
         $fill = !$fill;
-
+        //TODO: change format of credit footer (smaller font and right aligned)
 
 
         //finalize pdf and output
         $this->Output();
-        //!!! change this to generate a download link! not very nice right now!
+        //TODO: change this to generate a download link! not very nice right now!
 
     }
 }
