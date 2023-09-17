@@ -140,6 +140,8 @@ class PDF extends FPDF
 
         //finalize pdf and output
         $this->Output();
+        //!!! change this to generate a download link! not very nice right now!
+
     }
 }
 
