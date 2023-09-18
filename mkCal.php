@@ -5,7 +5,7 @@ class PDF extends FPDF
 {
 
 // makeCalendar
-    function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorSceme)
+    function mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme)
     {
         /*
             $title = String that contains the Header-text of the Calendar
@@ -18,10 +18,9 @@ class PDF extends FPDF
             $highlightSaturday = Hex key of highlightcolor of Saturdays
             $footer = String with footer text
             $format = currently only "A4Landscape"
-            $ColorSceme = Color for Title and Month Background
+            $ColorScheme = Color for Title and Month Background
         */
         
-        //TODO: add ColorScheme support
         //TODO: add page format support
         //TODO: add pdf metadata (Page Title, created with PrintablePDFYearCalendar, ...)
         //TODO: clean up code, some executions are obsolete
@@ -29,6 +28,28 @@ class PDF extends FPDF
 
         //setlocale for correct display of month and days
         setlocale(LC_TIME, $locale);
+
+        //set Colors depending on ColorScheme
+        switch($colorScheme)
+        {
+            case "red":
+                $headerColor = "#FF0000";
+                $titleColor = "#FF1010";
+             break;
+            case "green":
+                 $headerColor = "#00FF00";
+                 $titleColor = "#10FF10";
+             break;
+            case "blue":
+                 $headerColor = "#0000FF";
+                 $titleColor = "#1010FF";
+             break;
+            case "yellow":
+                 $headerColor = "#FFFF00";
+                 $titleColor = "#FFFF10";
+             break;
+        }
+
 
         //initialize PDF
         // $this = new PDF('L','mm','A4');
@@ -42,14 +63,14 @@ class PDF extends FPDF
         //title
         $this->SetFont('','B');
         $this->SetFont('Arial','',22);
-        list($r, $g, $b) = sscanf($colorSceme, "#%02x%02x%02x");
+        list($r, $g, $b) = sscanf($titleColor, "#%02x%02x%02x");
         $this->SetTextColor($r,$g,$b);
         $this->Cell(250,10,iconv('UTF-8', 'windows-1252', $title),0);
         $this->Cell(30,10,$Year,0);
         $this->Ln();
 
         // Colors, line width and bold font
-        list($r, $g, $b) = sscanf($colorSceme, "#%02x%02x%02x");
+        list($r, $g, $b) = sscanf($headerColor, "#%02x%02x%02x");
         $this->SetFillColor($r,$g,$b);
         $this->SetTextColor(255);
         $this->SetDrawColor(0,0,0);
