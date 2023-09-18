@@ -9,6 +9,7 @@ class PDF extends FPDF
     {
         /*
             $title = String that contains the Header-text of the Calendar
+            $Year = The Year for which the calendar should be rendered
             $locale = locale setting for Month and Day names (e.g. de_DE)
             $daysText = 2-dimensional string array [month][day] for text in cell
             $daysColor = 2-dimensional string array [month][day] for bgcolor of cell (HEX)
@@ -167,9 +168,8 @@ class PDF extends FPDF
         $this->Cell(400,10,$footer,0);
         $this->Ln();
         $this->SetFont('Arial','',10);
-        $this->Cell(400,10,iconv('UTF-8', 'windows-1252',"This Calendar was made using PrintablePDFYearCalendar by Philipp Gürth - github.com/goerdy/PrintablePDFYearCalendar"),0);
+        $this->Cell($this->GetPageWidth()-17,10,iconv('UTF-8', 'windows-1252',"This Calendar was made using PrintablePDFYearCalendar by Philipp Gürth - github.com/goerdy/PrintablePDFYearCalendar"),0, 1, "R");
         $fill = !$fill;
-        //TODO: change format of credit footer (smaller font and right aligned)
 
 
         //finalize pdf and output
