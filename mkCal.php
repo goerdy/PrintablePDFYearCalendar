@@ -15,6 +15,10 @@ function PrintablePDFYearCalendar($title, $Year, $locale, $daysText, $daysColor,
 {
     $pdf = new PDF('L','mm','A4');
     $pdf->mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme);
+    $filename = preg_replace ( '/[^a-z0-9]/i', '', $title.$Year.time());
+    $filename = 'download/'.$filename.'.pdf';
+    $pdf->Output('F', $filename);
+    return $filename;
 }
 
 class PDF extends FPDF
@@ -189,7 +193,7 @@ class PDF extends FPDF
 
 
         //finalize pdf and output
-        $this->Output();
+        //$this->Output();
         //TODO: change this to generate a download link! not very nice right now!
 
     }
