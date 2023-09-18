@@ -22,9 +22,16 @@ class PDF extends FPDF
         */
         
         //TODO: add page format support
-        //TODO: add pdf metadata (Page Title, created with PrintablePDFYearCalendar, ...)
         //TODO: clean up code, some executions are obsolete
         //TODO: improve code comments
+
+        //set PDF Metadata
+        $this->SetCreator("PrintablePDFYearCalendar"); //Creator
+        $this->SetAuthor($_SERVER['HTTP_HOST']); //Set Domain as Author
+        $this->SetTitle($title." ".$Year); //Title
+        $this->SetSubject("PDF single page year calendar of ".$Year." generated on ".$_SERVER['HTTP_HOST']); //Subject
+        $this->SetKeywords("Year-Calendar Calendar ".$Year." ".$_SERVER['HTTP_HOST']." PrintablePDFYearCalendar ".$title); // Keywords
+
 
         //setlocale for correct display of month and days
         setlocale(LC_TIME, $locale);
