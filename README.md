@@ -1,47 +1,44 @@
 # PrintablePDFYearCalendar
 
-This project provides a script that renders a year calendar on a single page PDF file. This is perfect for workshift scedules, club meetings, school holidays and much more.
+This project provides a script that renders a year calendar on a single page PDF file. This is perfect for workshift schedules, club meetings, school holidays and much more.
 The option to color highlight days makes it clearer to read and gives an easy overview.
 
-This projekt was made to print a 24-hour shift scedule for a career fire department and is used in that project [link to fireshift git].
+This project was made to print a 24-hour shift schedule for a career fire department and is used in that project [link to fireshift git].
 
-It was a well considered desicion to use 2-dimensional arrays as input cause they are easy to fill with data from different sources and dont blow the code that much.
+It was a well considered decision to use 2-dimensional arrays as input because they are easy to fill with data from different sources and don't blow the code that much.
 
 # Features
 
-* highly customizeable
-* text and color for each day seperatly
-* multi language suport
-* suports holidays (color highlightning)
-* color highlighting for Saturday and Sunday (AFAIK that fits western and hebrew demands, if your culture needs other highlighting, let me know and i will add suport for this)
+* highly customizable
+* text and color for each day separately
+* multi-language support
+* supports holidays (color highlighting)
+* color highlighting for Saturday and Sunday (AFAIK that fits western and hebrew demands, if your culture needs other highlighting, let me know and I will add support for this)
 
 # Usage
 
 1. include mkCal.php in your project
-2. create new pdf
-3. call mkCal function
+2. call PrintablePDFYearCalendar function
  
 require('mkCal.php');
 
-$pdf = new PDF('L','mm','A4');
-
-$pdf->mkCal("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#AAAA00" ,"#FF0000", "#990000", "some customizeable footer text", "A4Landscape", "#0000FF");
+$pdf->mkCal("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#AAAA00" ,"#FF0000", "#990000", "some customizable footer text", "A4Landscape", "#0000FF");
 
 
 
 ## style
 
-$locale [string] e.g. "en_US" or "de_DE" for correct display of month and days in your lanaguage
+$locale [string] e.g. "en_US" or "de_DE" for correct display of month and days in your language
 
 $highlightHolidays [string] contains the Hex color key for holiday highlighting
 
 $highlightSunday [string] contains the Hex color key for sunday highlighting
 
-$ighlightSaturday [string] contains the Hex color key for saturday highlighting
+$highlightSaturday [string] contains the Hex color key for saturday highlighting
 
 *$format* [string] "A4Landscape" NOT IMPLEMENTED YET
 
-*$colorSceme* [string] "red/blue/green/yellow" NOT IMPLEMENTED YET
+*$colorScheme* [string] "red/blue/green/yellow" NOT IMPLEMENTED YET
 
 
 
@@ -57,9 +54,9 @@ Function expects three 2-dimensional Arrays. Where the first index is the month 
 
 $DaysTextArray [string] contains the text to display in each given Day
 
-$DaysColorArray [string] contains the Hex color key for backgroud color of each given Day
+$DaysColorArray [string] contains the Hex color key for background color of each given Day
 
-$DaysHolidaysArray [boolean] specifies if the given day is an holiday
+$DaysHolidaysArray [boolean] specifies if the given day is a holiday
 
 
 example: 

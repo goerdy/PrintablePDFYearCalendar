@@ -1,5 +1,21 @@
 <?php
+/*
+-= PrintablePDFYearCalendar =-
+
+https://github.com/goerdy/PrintablePDFYearCalendar
+
+by Philipp "goerdy" Gürth
+github@philipp-guerth.de
+
+Version: 0.1
+*/
 require('fpdf.php');
+
+function PrintablePDFYearCalendar($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme)
+{
+    $pdf = new PDF('L','mm','A4');
+    $pdf->mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme);
+}
 
 class PDF extends FPDF
 {
@@ -168,7 +184,7 @@ class PDF extends FPDF
         $this->Cell(400,10,$footer,0);
         $this->Ln();
         $this->SetFont('Arial','',10);
-        $this->Cell($this->GetPageWidth()-17,10,iconv('UTF-8', 'windows-1252',"This Calendar was made using PrintablePDFYearCalendar by Philipp Gürth - github.com/goerdy/PrintablePDFYearCalendar"),0, 1, "R");
+        $this->Cell($this->GetPageWidth()-17,10,iconv('UTF-8', 'windows-1252',"powered by PrintablePDFYearCalendar by Philipp Gürth - github.com/goerdy/PrintablePDFYearCalendar"),0, 1, "R");
         $fill = !$fill;
 
 
