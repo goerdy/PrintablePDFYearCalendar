@@ -41,7 +41,7 @@ $ighlightSaturday [string] contains the Hex color key for saturday highlighting
 
 *$format* [string] "A4Landscape" NOT IMPLEMENTED YET
 
-*$colorSceme* [string] "red/blue/green/yellow" NOT IMPLEMENTED YET
+*$colorSceme* [string] "red/blue/green/yellow"
 
 
 
