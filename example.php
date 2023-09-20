@@ -28,9 +28,10 @@ $DaysColorArray[4][22]="#00FF00"; //green background for April 22nd
 $DaysColorArray[12][3]="#0000FF"; //blue background for December 12
 
 //DaysHolidaysArray[MONTH][DAY]= boolean
+$DaysHolidaysArray[1][1]="true"; //New years eve is highlighted as holiday
 $DaysHolidaysArray[3][17]="true"; //March 17th is highlighted as holiday
 
 //function PrintablePDFYearCalendar($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme)
 
-PrintablePDFYearCalendar("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#0F0F0F" ,"#FF0000", "#990000", "some customizable footer text", "A4Landscape", "blue");
+PrintablePDFYearCalendar("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#FF0000" ,"#FF0000", "#990000", "some customizable footer text", "A4Landscape", "blue");
 ?>
