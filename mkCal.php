@@ -13,12 +13,33 @@ require('fpdf.php');
 
 function PrintablePDFYearCalendar($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme)
 {
-    $pdf = new PDF('L','mm','A4');
+    //fpdf constructor
+    //TODO: page format (A4Landscape / LetterLandscape) from $format
+    if($format=="A4Landscape")
+    {
+        $pdf = new PDF('L','mm','A4');
+    }
+    elseif ($format=="LetterLandscape")
+    {
+        $pdf = new PDF('L','mm','Letter');
+    }
+    else
+    {
+        //ToDo: Error Handling
+        $pdf = new PDF('L','mm','A4');
+    }
+    
+
+    //function call mkCal
     $pdf->mkCal($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme);
-    $filename = preg_replace ( '/[^a-z0-9]/i', '', $title.$Year.time());
-    $filename = 'download/'.$filename.'.pdf';
-    $pdf->Output('F', $filename);
-    return $filename;
+
+    //build a filename from $title and $Year
+    //TODO: use improved regex to make it working for non latin title text.
+    $filename = preg_replace ( '/[^a-z0-9]/i', '', $title.$Year);
+    $filename = $filename.'.pdf';
+
+    //instruct browser to download the file Change "dest" parameter to 'I' to open in browser / pdf-reader
+    $pdf->Output('D', $filename);
 }
 
 class PDF extends FPDF
@@ -80,8 +101,20 @@ class PDF extends FPDF
 
 
         //initialize PDF
-        // $this = new PDF('L','mm','A4');
-        $this->SetMargins(12,5,5);
+        if($format=="A4Landscape")
+        {
+            $this->SetMargins(12,5,5);
+        }
+        elseif($format=="LetterLandscape")
+        {
+            $this->SetMargins(4,5,5);
+        }
+        else
+        {
+            //ToDo: Add error handling
+            $this->SetMargins(12,5,5);
+        }
+
         $this->SetAutoPageBreak(true,5);
         $this->SetFont('Arial','',10);
         $this->AddPage();
@@ -190,12 +223,6 @@ class PDF extends FPDF
         $this->SetFont('Arial','',10);
         $this->Cell($this->GetPageWidth()-17,10,iconv('UTF-8', 'windows-1252',"powered by PrintablePDFYearCalendar by Philipp Gürth - github.com/goerdy/PrintablePDFYearCalendar"),0, 1, "R");
         $fill = !$fill;
-
-
-        //finalize pdf and output
-        //$this->Output();
-        //TODO: change this to generate a download link! not very nice right now!
-
     }
 }
 

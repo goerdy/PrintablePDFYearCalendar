@@ -18,11 +18,12 @@ It was a well considered decision to use 2-dimensional arrays as input because t
 # Usage
 
 1. include mkCal.php in your project
-2. call PrintablePDFYearCalendar function
+2. store your data in Arrays.
+3. call PrintablePDFYearCalendar function
  
 require('mkCal.php');
 
-$pdf->mkCal("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#AAAA00" ,"#FF0000", "#990000", "some customizable footer text", "A4Landscape", "#0000FF");
+PrintablePDFYearCalendar("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#AAAA00" ,"#FF0000", "#990000", "some customizable footer text", "A4Landscape", "#0000FF");
 
 
 
