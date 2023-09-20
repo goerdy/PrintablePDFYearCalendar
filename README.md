@@ -20,7 +20,7 @@ It was a well considered decision to use 2-dimensional arrays as input because t
 1. include mkCal.php in your project
 2. store your data in Arrays.
 3. call PrintablePDFYearCalendar function
- 
+
 require('mkCal.php');
 
 PrintablePDFYearCalendar("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#AAAA00" ,"#FF0000", "#990000", "some customizable footer text", "A4Landscape", "#0000FF");
@@ -37,9 +37,9 @@ $highlightSunday [string] contains the Hex color key for sunday highlighting
 
 $highlightSaturday [string] contains the Hex color key for saturday highlighting
 
-*$format* [string] "A4Landscape" NOT IMPLEMENTED YET
+*$format* [string] "A4Landscape / LetterLandscape"
 
-*$colorScheme* [string] "red/blue/green/yellow" NOT IMPLEMENTED YET
+*$colorScheme* [string] "red/blue/green/yellow" 
 
 
 
