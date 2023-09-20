@@ -32,5 +32,5 @@ $DaysHolidaysArray[3][17]="true"; //March 17th is highlighted as holiday
 
 //function PrintablePDFYearCalendar($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme)
 
-PrintablePDFYearCalendar("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#AAAA00" ,"#FF0000", "#990000", "some customizable footer text", "A4Landscape", "blue");
+PrintablePDFYearCalendar("Example Calendar", 2024 ,"en_US", $DaysTextArray, $DaysColorArray, $DaysHolidaysArray, "#0F0F0F" ,"#FF0000", "#990000", "some customizable footer text", "A4Landscape", "blue");
 ?>

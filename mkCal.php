@@ -14,7 +14,6 @@ require('fpdf.php');
 function PrintablePDFYearCalendar($title, $Year, $locale, $daysText, $daysColor, $daysHolidays, $highlightHolidays, $highlightSunday, $highlightSaturday, $footer, $format, $colorScheme)
 {
     //fpdf constructor
-    //TODO: page format (A4Landscape / LetterLandscape) from $format
     if($format=="A4Landscape")
     {
         $pdf = new PDF('L','mm','A4');
@@ -25,7 +24,8 @@ function PrintablePDFYearCalendar($title, $Year, $locale, $daysText, $daysColor,
     }
     else
     {
-        //ToDo: Error Handling
+        //ToDo: Error Handling for not supported page format
+        //Falling back to A4
         $pdf = new PDF('L','mm','A4');
     }
     
@@ -38,7 +38,7 @@ function PrintablePDFYearCalendar($title, $Year, $locale, $daysText, $daysColor,
     $filename = preg_replace ( '/[^a-z0-9]/i', '', $title.$Year);
     $filename = $filename.'.pdf';
 
-    //instruct browser to download the file Change "dest" parameter to 'I' to open in browser / pdf-reader
+    //instruct browser to download the file Change "dest" parameter from 'D' to 'I' to open in browser / pdf-reader
     $pdf->Output('D', $filename);
 }
 
@@ -59,11 +59,10 @@ class PDF extends FPDF
             $highlightSunday = Hex key of highlightcolor of Sundays
             $highlightSaturday = Hex key of highlightcolor of Saturdays
             $footer = String with footer text
-            $format = currently only "A4Landscape"
+            $format = "A4Landscape / LetterLandscape"
             $ColorScheme = Color for Title and Month Background
         */
         
-        //TODO: add page format support
         //TODO: clean up code, some executions are obsolete
         //TODO: improve code comments
 
@@ -79,6 +78,7 @@ class PDF extends FPDF
         setlocale(LC_TIME, $locale);
 
         //set Colors depending on ColorScheme
+        //ToDo: Improve color schemes - better matching eye and print friendly colors
         switch($colorScheme)
         {
             case "red":
@@ -101,6 +101,7 @@ class PDF extends FPDF
 
 
         //initialize PDF
+        //Page format A4/Letter changes at the moment only the left page margin. works for the moment but may be improved later on
         if($format=="A4Landscape")
         {
             $this->SetMargins(12,5,5);
@@ -119,8 +120,6 @@ class PDF extends FPDF
         $this->SetFont('Arial','',10);
         $this->AddPage();
 
-
-
         //title
         $this->SetFont('','B');
         $this->SetFont('Arial','',22);
@@ -138,18 +137,18 @@ class PDF extends FPDF
         $this->SetLineWidth(.3);
         $this->SetFont('','B');
         $this->SetFont('Arial','',12);
-        // Header
+
+        // Header (Month)
         $w = 16; //Cell Width
         $wWeekDay = 6; //Cell Width
         $this->Cell(8,7,' ',1,0,'C',true);
         for($i=1;$i<=12;$i++)
             $this->Cell($w+$wWeekDay,7,$date = strftime('%B',strtotime($i."/01/1970")) ,1,0,'C',true);
         $this->Ln();
-        // Color and font restoration
-        //$this->SetFillColor(224,235,255);
+
+        // Calendar data
         $this->SetTextColor(0);
         $this->SetFont('Arial','',14);
-        // Data
         $fill = false;
 
         for($i=1;$i<=31;$i++)
@@ -158,39 +157,54 @@ class PDF extends FPDF
             {
                 if($j==0)
                 {
+                    //first column - print number of the day
                     $this->SetFont('Arial','',14);
                     $this->SetDrawColor(0,0,0);
                     $this->Cell(8,5.2,$i,'LRB',0,'L',false);
                 }
                 else
                 {
+                    //Day Cell, devided in short of weekday and data cell
+                    
                     // Weekday
                     $this->SetFont('Arial','',6);
                     //check if sunday/saturday/ and set fill color
                     $wday= date('w', strtotime($i.'-'.$j.'-'.$Year));
-                    if($wday==0)
+                    if($wday==0) //Sunday
                     {
                         list($r, $g, $b) = sscanf($highlightSunday, "#%02x%02x%02x");
                         $this->SetFillColor($r,$g,$b);
                         $fill = true;
                     }
-                    else if($wday==6)
+                    else if($wday==6) //Saturday
                     {
                         list($r, $g, $b) = sscanf($highlightSaturday, "#%02x%02x%02x");
                         $this->SetFillColor($r,$g,$b);
                         $fill = true;
                     }
-                    else
+                    else //Monday - Friday
                     {
                         $this->SetFillColor(0,0,0);
                         $fill = false;
                     }
-                    if(checkdate($j,$i,$Year))
+
+                    //set background color for holiday
+                    if($daysHolidays[$j][$i])
                     {
+                        list($r, $g, $b) = sscanf($highlightHolidays, "#%02x%02x%02x");
+                        $this->SetFillColor($r,$g,$b);
+                        $fill = true;
+                    }
+
+                    
+                    if(checkdate($j,$i,$Year)) //Check if particular date exists ( e.g. 29. of february...)
+                    {
+                        //print short version of day name
                         $this->Cell($wWeekDay,5.2,strftime('%a', strtotime($i.'-'.$j.'-'.$Year)),1,0,'L',$fill);
                     }
                     else
                     {
+                        //leave cell empty because day doesn't exist
                         $this->Cell($wWeekDay,5.2,' ',1,0,'L',false);
                     }
                     $this->SetFont('Arial','',12);
@@ -204,13 +218,12 @@ class PDF extends FPDF
                     }
                     else
                     {
+                        //no fill color given
                         $fill=false;
                     }
-                    // End of Background Color
 
+                    //Write DayText to Cell
                     $this->Cell($w,5.2,$daysText[$j][$i],1,0,'L',$fill);
-                    //$this->SetFillColor(0,0,0);
-                    //$this->SetDrawColor(0,0,0);
                 }
             }
 
